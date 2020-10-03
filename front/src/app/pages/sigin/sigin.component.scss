@@ -69,6 +69,8 @@ mat-form-field {
 }
 .register:hover {
   color: rgba(0, 0, 0, 0.527);
+
+  cursor: pointer;
 }
 
 @media (max-width: 900px) {
