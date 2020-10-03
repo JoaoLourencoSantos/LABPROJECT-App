@@ -1,28 +1,34 @@
 <div class="center-screen">
 	<mat-card class="card">
-		<mat-card-title class="card-title">Cadastro Receita</mat-card-title>
+		<mat-card-title class="card-title">Cadastro Despesa</mat-card-title>
 		<mat-card-content class="card-content">
 			<form class="form container" (ngSubmit)='this.submit()'>
-				<mat-form-field appearance="standard">
-          <mat-label>Input</mat-label>
-          <input matInput>
+        <br>
+        <mat-form-field appearance="standard">
+          <mat-label>Valor</mat-label>
+          <input matInput placeholder="R$" [(ngModel)]="this.valor"
+						[ngModelOptions]="{ standalone: true }" />
         </mat-form-field>
         <br>
         <mat-form-field appearance="standard">
-          <mat-label>Select</mat-label>
+          <mat-label>Categoria</mat-label>
           <mat-select>
-            <mat-option value="option">Option</mat-option>
+            <mat-option value="alimentacao">Alimentação</mat-option>
+            <mat-option value="lazer">Lazer</mat-option>
+            <mat-option value="transporte">Transporte</mat-option>
           </mat-select>
         </mat-form-field>
         <br>
         <mat-form-field appearance="standard">
-          <mat-label>Input</mat-label>
-          <input matInput>
+          <mat-label>Data</mat-label>
+          <input matInput [matDatepicker]="picker">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
-        <br>
         <mat-form-field appearance="standard">
-          <mat-label>Textarea</mat-label>
+          <mat-label>Descrição</mat-label>
           <textarea matInput></textarea>
+          <input matInput placeholder="McDonalds"/>
         </mat-form-field>
         <div class="form-actions">
 					<button (click)='this.submit()' mat-raised-button class="login-button c-yellow">

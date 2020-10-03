@@ -19,7 +19,7 @@
 .card {
 	position: absolute;
 	width: 28%;
-	height: 66%;
+	height: 70%;
 
 	display: flex;
 	flex-direction: column;
@@ -54,8 +54,7 @@ mat-form-field {
 
 .login-button {
   width: 40%;
-  margin-left: 5%;
-	margin-top: 5%;
+	margin-top: 2%;
 }
 
 .card-title {
@@ -79,8 +78,11 @@ mat-form-field {
 		background-color: rgba(189, 222, 255, 0.2);
 		background-size: contain;
 		overflow: hidden !important;
-	}
+  }
 
+  .mat-radio-button {
+    margin: 20%;
+  }
 
 	.card {
 		position: absolute;

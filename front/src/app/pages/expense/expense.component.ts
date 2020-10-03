@@ -17,6 +17,6 @@ export class ExpenseComponent implements OnInit {
   }
 
   submit = async () => {
-    console.log('oi');
+    console.log('valor:' + this.valor, 'categoria:' + this.categoria, 'data:' + this.data, 'descricao:' + this.descricao);
   }
 }
