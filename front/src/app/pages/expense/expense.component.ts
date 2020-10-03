@@ -6,10 +6,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./expense.component.scss']
 })
 export class ExpenseComponent implements OnInit {
+  valor: number;
+  descricao: string;
+  data: Date;
+  categoria: string;
 
   constructor() { }
 
   ngOnInit(): void {
   }
 
+  submit = async () => {
+    console.log('valor:' + this.valor, 'categoria:' + this.categoria, 'data:' + this.data, 'descricao:' + this.descricao);
+  }
 }
