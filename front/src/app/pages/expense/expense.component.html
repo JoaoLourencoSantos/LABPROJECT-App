@@ -1,1 +1,35 @@
-<h1>AQUI È A TELA DE DESPESAS!</h1>
+<div class="center-screen">
+	<mat-card class="card">
+		<mat-card-title class="card-title">Cadastro Receita</mat-card-title>
+		<mat-card-content class="card-content">
+			<form class="form container" (ngSubmit)='this.submit()'>
+				<mat-form-field appearance="standard">
+          <mat-label>Input</mat-label>
+          <input matInput>
+        </mat-form-field>
+        <br>
+        <mat-form-field appearance="standard">
+          <mat-label>Select</mat-label>
+          <mat-select>
+            <mat-option value="option">Option</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <br>
+        <mat-form-field appearance="standard">
+          <mat-label>Input</mat-label>
+          <input matInput>
+        </mat-form-field>
+        <br>
+        <mat-form-field appearance="standard">
+          <mat-label>Textarea</mat-label>
+          <textarea matInput></textarea>
+        </mat-form-field>
+        <div class="form-actions">
+					<button (click)='this.submit()' mat-raised-button class="login-button c-yellow">
+						Salvar
+					</button>
+				</div>
+			</form>
+		</mat-card-content>
+	</mat-card>
+</div>
