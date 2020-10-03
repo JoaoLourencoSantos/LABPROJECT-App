@@ -4,10 +4,12 @@ import { RouterModule, Routes } from '@angular/router';
 import { ExpenseComponent } from './pages/expense/expense.component';
 import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
+import { SiginComponent } from './pages/sigin/sigin.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'login', component: LoginComponent },
+  { path: 'sigin', component: SiginComponent },
   { path: 'home', component: HomeComponent },
   { path: 'expenses', component: ExpenseComponent },
 ];

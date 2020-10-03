@@ -1,0 +1,34 @@
+<div class="center-screen">
+  <mat-card class="card">
+    <mat-card-title class="card-title">Cadastrar-se</mat-card-title>
+    <mat-card-content class="card-content">
+      <form class="form container">
+        <mat-form-field>
+          <mat-label>Nome</mat-label>
+          <input matInput placeholder="Nome" [(ngModel)]="this.name" [ngModelOptions]="{ standalone: true }" />
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>E-mail</mat-label>
+          <input matInput placeholder="Email" [(ngModel)]="this.email" [ngModelOptions]="{ standalone: true }" />
+        </mat-form-field>
+        <br />
+        <mat-form-field>
+          <mat-label>Senha</mat-label>
+          <input matInput type="password" placeholder="*****" [(ngModel)]="this.password"
+            [ngModelOptions]="{ standalone: true }" />
+        </mat-form-field>
+        <br />
+
+        <div class="form-actions">
+          <button (click)='this.register()' mat-raised-button class="login-button c-yellow">
+            Cadastrar-se
+          </button>
+
+          <div routerLink="/login" class="register"> Logar ?</div>
+
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

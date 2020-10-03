@@ -1,0 +1,103 @@
+.center-screen {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	min-height: 100vh;
+	width: 100%;
+	height: 100%;
+
+
+	background: no-repeat url("../../../assets/background.png") 50%;
+	z-index: 0;
+	background-color: rgba(189, 222, 255, 0.2);
+	background-size: contain;
+	overflow: hidden !important;
+}
+
+.card {
+	position: absolute;
+	width: 40%;
+	height: 69%;
+
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+  align-items: center;
+
+  box-shadow: 0 2em 4em rgba(0, 0, 0, 0.6);
+}
+
+.card-content {
+	width: 100% !important;
+	height: 80% !important;
+}
+
+.form {
+	width: 100%;
+	height: 100%;
+}
+
+mat-form-field {
+	width: 100%;
+	margin-top: 5%;
+}
+
+.form-actions {
+	margin-top: 5%;
+}
+
+.form-actions span {
+	float: right;
+}
+
+.login-button {
+	width: 100%;
+	margin-top: 5%;
+}
+
+.card-title {
+	font-weight: 500;
+	font-size: 2rem;
+}
+
+.register {
+  margin-top: 5%;
+  font-weight: 600;
+  color: rgba(0, 0, 0, 0.800);
+}
+.register:hover {
+  color: rgba(0, 0, 0, 0.527);
+}
+
+@media (max-width: 900px) {
+	.center-screen {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		text-align: center;
+		min-height: 100vh;
+		width: 100%;
+		height: 100%;
+
+
+    background: no-repeat url("../../../assets/background.png");
+		background-color: rgba(189, 222, 255, 0.2);
+		background-size: contain;
+		overflow: hidden !important;
+	}
+
+
+	.card {
+		position: absolute;
+		width: 90%;
+		height: 47%;
+
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+	}
+}

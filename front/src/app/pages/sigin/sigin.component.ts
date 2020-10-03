@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastService } from 'src/app/services/toast.service';
-
-import { UserService } from '../../services/user.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss'],
+  selector: 'app-sigin',
+  templateUrl: './sigin.component.html',
+  styleUrls: ['./sigin.component.scss'],
 })
-export class LoginComponent implements OnInit {
-  username: string = '';
+export class SiginComponent implements OnInit {
+  name: string = '';
+  email: string = '';
   password: string = '';
 
   constructor(
@@ -21,14 +21,15 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  login = async () => {
-    if (!this.username || !this.password) {
+  register = async () => {
+    if (!this.name || !this.email || !this.password) {
       this.toast.infoErroAlert();
       return;
     }
 
-    const result = await this.service.auth(
-      this.username.trim(),
+    const result = await this.service.registerUser(
+      this.name.trim(),
+      this.email.trim(),
       this.password.trim()
     );
 
