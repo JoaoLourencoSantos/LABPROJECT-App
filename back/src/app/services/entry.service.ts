@@ -9,20 +9,20 @@ import { EntryDTO } from './../dto/entry.dto';
 @Injectable()
 export class EntryService {
   public constructor(
-    @InjectRepository(Entry) public readonly entryRepository: Repository<Entry>,
+    @InjectRepository(Entry) public readonly entryRepository: Repository<Entry>
   ) {}
 
   async findAll(): Promise<ResponseDTO> {
     try {
       return new ResponseDTO(
-        'Found users',
+        "Found users",
         await this.entryRepository.find(),
         200,
-        true,
+        true
       );
     } catch (exception) {
       throw new InternalServerErrorException(
-        'Erro in find users: ' + exception.message,
+        "Erro in find users: " + exception.message
       );
     }
   }
@@ -37,15 +37,15 @@ export class EntryService {
       result = await this.entryRepository.findOne(id);
     } catch (exception) {
       throw new InternalServerErrorException(
-        'Erro in find entrys: ' + exception.message,
+        "Erro in find entrys: " + exception.message
       );
     }
 
     if (!result) {
-      throw new NotFoundException('user not found');
+      throw new NotFoundException("user not found");
     }
 
-    return new ResponseDTO('Found users', result, 200, true);
+    return new ResponseDTO("Found users", result, 200, true);
   }
 
   async create(entryDTO: EntryDTO): Promise<ResponseDTO> {
@@ -58,10 +58,48 @@ export class EntryService {
 
       const entry: Entry = await this.entryRepository.save(newEntry);
 
-      return new ResponseDTO('Created', entry, 201, true);
+      return new ResponseDTO("Created", entry, 201, true);
     } catch (exception) {
       throw new InternalServerErrorException(
-        'Erro in create user: ' + exception.message,
+        "Erro in create user: " + exception.message
+      );
+    }
+  }
+
+  async update(entryDTO: EntryDTO): Promise<ResponseDTO> {
+    try {
+      const newEntry = new Entry();
+      newEntry.id = entryDTO.id;
+      newEntry.name = entryDTO.name;
+      newEntry.value = Number(entryDTO.value);
+      newEntry.type = entryDTO.type;
+      newEntry.referenceAt = entryDTO.referenceAt;
+
+      const entry: Entry = await this.entryRepository.save(newEntry);
+
+      return new ResponseDTO("Created", entry, 201, true);
+    } catch (exception) {
+      throw new InternalServerErrorException(
+        "Erro in create user: " + exception.message
+      );
+    }
+  }
+
+  async delete({ id }): Promise<ResponseDTO> {
+    if (!id) {
+      throw new BadRequestException("Parameter 'id' is necessary!");
+    }
+
+    try {
+      return new ResponseDTO(
+        "Entry deleted",
+        await this.entryRepository.delete(id),
+        200,
+        true
+      );
+    } catch (exception) {
+      throw new InternalServerErrorException(
+        "Erro in delete entrys: " + exception.message
       );
     }
   }

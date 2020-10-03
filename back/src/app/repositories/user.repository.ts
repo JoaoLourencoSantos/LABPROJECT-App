@@ -15,6 +15,16 @@ export class UserRepository extends Repository<User> {
     return await this.save(user);
   }
 
+  async updateUser({ id, email, name, dateBirth }): Promise<User> {
+    const user = new User();
+    user.id = id;
+    user.email = email;
+    user.name = name;
+    user.dateBirth = dateBirth;
+
+    return await this.save(user);
+  }
+
   private async hashPassword(password: string, salt: number): Promise<string> {
     return bcrypt.hash(password, salt);
   }

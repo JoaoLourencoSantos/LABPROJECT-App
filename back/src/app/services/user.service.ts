@@ -1,18 +1,18 @@
-import { UserRepository } from "./../repositories/user.repository";
 import {
   BadRequestException,
   ConflictException,
   Injectable,
   InternalServerErrorException,
   NotFoundException,
-} from "@nestjs/common";
-import { InjectRepository } from "@nestjs/typeorm";
+} from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import * as bcrypt from 'bcrypt';
 
-import User from "../models/user";
-import { ResponseDTO } from "./../dto/response.dto";
-import { UserDTO } from "./../dto/user.dto";
-
-import * as bcrypt from "bcrypt";
+import User from '../models/user';
+import { ResponseDTO } from './../dto/response.dto';
+import { UserDTO } from './../dto/user.dto';
+import { UserPutDTO } from './../dto/user.put.dto';
+import { UserRepository } from './../repositories/user.repository';
 
 @Injectable()
 class UserService {
@@ -78,6 +78,28 @@ class UserService {
     }
   }
 
+  async update(userPutDTO: UserPutDTO): Promise<ResponseDTO> {
+    const validEmail: User = await this.userReporitory.findOne({
+      email: userPutDTO.email,
+    });
+
+    if (validEmail) {
+      throw new ConflictException(
+        "Erro in update user: this user already exists"
+      );
+    }
+
+    try {
+      const user: User = await this.userReporitory.updateUser(userPutDTO);
+
+      return new ResponseDTO("Updated", user, 201, true);
+    } catch (exception) {
+      throw new InternalServerErrorException(
+        "Erro in update user: " + exception.message
+      );
+    }
+  }
+
   async auth(email: string, virtualPass: string): Promise<any> {
     const user = await this.userReporitory.findOne({ email });
 
@@ -90,6 +112,25 @@ class UserService {
     }
 
     return null;
+  }
+
+  async delete({ id }): Promise<ResponseDTO> {
+    if (!id) {
+      throw new BadRequestException("Parameter 'id' is necessary!");
+    }
+
+    try {
+      return new ResponseDTO(
+        "User deleted",
+        await this.userReporitory.delete(id),
+        200,
+        true
+      );
+    } catch (exception) {
+      throw new InternalServerErrorException(
+        "Erro in delete user: " + exception.message
+      );
+    }
   }
 
   private async comparePassword(
