@@ -6,7 +6,7 @@ import { EntryService } from './../services/entry.service';
 
 @Controller('entry')
 export class EntryController {
-  constructor(private readonly repository: EntryService) {}
+  constructor(private readonly service: EntryService) {}
 
   @Get('/helf-check')
   async helfCheck(@Request() req): Promise<string> {
@@ -16,17 +16,17 @@ export class EntryController {
   }
 
   @Get()
-  async findAll(): Promise<ResponseDTO> {
-    return this.repository.findAll();
+  async findAll():Promise<ResponseDTO> {
+    return this.service.findAll();
   }
-
+  
   @Get('/one/:id')
   async findOne(@Param() params): Promise<ResponseDTO> {
-    return this.repository.find(params);
+    return this.service.find(params);
   }
 
   @Post()
   async create(@Body(ValidationPipe) entry: EntryDTO): Promise<ResponseDTO> {
-    return this.repository.create(entry);
+    return this.service.create(entry);
   }
 }
