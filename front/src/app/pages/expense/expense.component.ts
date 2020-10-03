@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { EntryService } from 'src/app/services/entry.service';
-
 import { ToastService } from './../../services/toast.service';
 
 @Component({
@@ -14,6 +13,8 @@ export class ExpenseComponent implements OnInit {
   data: Date;
   categoria: string;
   tipo: string;
+  budgetButtonStyle: string;
+  spendingButtonStyle = 'c-light-red';
 
   constructor(
     private entryService: EntryService,
@@ -22,12 +23,29 @@ export class ExpenseComponent implements OnInit {
 
   ngOnInit(): void {}
 
+  setBudgetForm = () => {
+    const categoria = document.getElementById('category-field');
+
+    categoria.hidden = true;
+    this.budgetButtonStyle = 'c-light-green';
+    this.spendingButtonStyle = '';
+  }
+
+  setSpendingForm = () => {
+    const categoria = document.getElementById('category-field');
+
+    categoria.hidden = false;
+    this.budgetButtonStyle = '';
+    this.spendingButtonStyle = 'c-light-red';
+  }
+
   submit = async () => {
     console.log(
-      'valor:' + this.valor,
-      'categoria:' + this.categoria,
-      'data:' + this.data,
-      'descricao:' + this.descricao
+      'valor: ' + this.valor,
+      'categoria: ' + this.categoria,
+      'data: ' + this.data,
+      'descricao: ' + this.descricao,
+      'tipo: ' + this.tipo
     );
 
     if (!this.valor || !this.categoria || !this.data || !this.descricao) {
@@ -40,7 +58,7 @@ export class ExpenseComponent implements OnInit {
         name: this.descricao,
         value: this.valor,
         referenceAt: this.data,
-        type: 'EXPENSE',
+        type: this.tipo,
       })
       .subscribe((result) => {
         if (result && result.sucess) {
