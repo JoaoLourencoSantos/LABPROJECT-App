@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { EntryService } from 'src/app/services/entry.service';
-
 import { ToastService } from './../../services/toast.service';
 
 @Component({
@@ -14,6 +13,8 @@ export class ExpenseComponent implements OnInit {
   data: Date;
   categoria: string;
   tipo: string;
+  budgetButtonStyle: string;
+  spendingButtonStyle = 'c-light-red';
 
   constructor(
     private entryService: EntryService,
@@ -21,6 +22,22 @@ export class ExpenseComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {}
+
+  setBudgetForm = () => {
+    const categoria = document.getElementById('category-field');
+
+    categoria.hidden = true;
+    this.budgetButtonStyle = 'c-light-green';
+    this.spendingButtonStyle = '';
+  }
+
+  setSpendingForm = () => {
+    const categoria = document.getElementById('category-field');
+
+    categoria.hidden = false;
+    this.budgetButtonStyle = '';
+    this.spendingButtonStyle = 'c-light-red';
+  }
 
   submit = async () => {
     console.log(
