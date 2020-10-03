@@ -1,0 +1,32 @@
+.box-logo {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.logo {
+  width: 40px !important;
+  height: 40px !important;
+  margin-right: 2% ;
+}
+
+.right-align {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: flex-end;
+}
+
+.link {
+  font-weight: 600;
+  font-size: 1rem !important;
+  margin-right: 5%;
+}
+
+.right-icons {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: flex-end;
+}

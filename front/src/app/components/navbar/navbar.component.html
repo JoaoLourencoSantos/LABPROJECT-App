@@ -1,0 +1,19 @@
+<mat-toolbar color="primary" *ngIf="this.isAuthenticated()">
+  <mat-toolbar-row>
+    <div class="col-7 box-logo">
+      <img class="logo" src="../../../assets/logo.png" alt="">
+      <h1>Minha despesa</h1>
+    </div>
+    <div class="col-4 right-align">
+
+      <span class="link" mat-button [routerLink]="'/home'"> Home </span>
+      <span class="link" mat-button [routerLink]="'/expenses'"> Despesas </span>
+      <span class="link" mat-button [routerLink]="'/home'"> Meu perfil </span>
+
+    </div>
+
+    <div class="col-1 right-icons">
+      <mat-icon aria-hidden="false" aria-label="Example home icon" (click)="this.logout()">exit_to_app</mat-icon>
+    </div>
+  </mat-toolbar-row>
+</mat-toolbar>
