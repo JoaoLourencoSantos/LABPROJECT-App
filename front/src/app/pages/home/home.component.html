@@ -1,1 +1,69 @@
-<h1>AQUI È A TELA HOME!</h1>
+<div class="body">
+  <div class="container">
+    <div class="row">
+      <div class="col-md">
+        <mat-card class="card mx-auto receita">
+          <mat-card-header>
+            <div class="row">
+              <div class="col-md">
+                <mat-icon aria-hidden="false" aria-label="icon icon-primary"
+                  >local_atm</mat-icon
+                >
+              </div>
+              <div class="col-md">
+                <h2>Receitas</h2>
+              </div>
+            </div>
+          </mat-card-header>
+
+          <mat-card-content>
+            <div class="col-sm-auto preco-receita">
+              <h1>+ R$ 3000,00</h1>
+            </div>
+          </mat-card-content>
+          <mat-card-actions>
+            <button mat-button>DETALHES</button>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+      <div class="col-md">
+        <mat-card class="card mx-auto despesa">
+          <mat-card-header>
+            <div class="row">
+              <div class="col-md">
+                <mat-icon aria-hidden="false" aria-label="icon icon-primary"
+                  >shopping_cart</mat-icon
+                >
+              </div>
+              <div class="col-md">
+                <h2>Despesas</h2>
+              </div>
+            </div>
+          </mat-card-header>
+
+          <mat-card-content>
+            <div class="col-sm-auto preco-despesa">
+              <h1>- R$ 450,00</h1>
+            </div>
+          </mat-card-content>
+          <mat-card-actions>
+            <button mat-button>DETALHES</button>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+    </div>
+
+    <div style="height: 50px"></div>
+
+    <mat-card>
+      <div class="d-flex">
+        <div class="mr-auto p-2">
+          <h2>Saldo total: <span class="saldo-total">+ R$ 2550,00</span></h2>
+        </div>
+        <div class="p-2">
+          <button mat-button>CONFERIR CÁLCULO</button>
+        </div>
+      </div>
+    </mat-card>
+  </div>
+</div>

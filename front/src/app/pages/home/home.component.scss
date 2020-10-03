@@ -1,0 +1,53 @@
+.card {
+  max-width: 400px;
+}
+
+.body {
+  padding: 50px;
+}
+
+.center-div {
+  margin: 0 auto;
+}
+
+.receita {
+  background-color: #f7fff5;
+}
+
+.despesa {
+  background-color: #fff5f5;
+}
+
+.icon-primary {
+  font-size: 35px;
+}
+
+.icon-secondary {
+  font-size: 45px;
+}
+
+.preco-receita {
+  color: green;
+}
+
+.preco-despesa {
+  color: red;
+}
+
+.saldo-total {
+  color: green;
+  font-size: larger;
+  font: 400 24px/32px Roboto, "Helvetica Neue", sans-serif;
+}
+
+.d-flex {
+  padding: 0px !important;
+}
+
+.p-2 {
+  padding: 0px !important;
+}
+
+.mr-auto {
+  padding: 0px !important;
+}
