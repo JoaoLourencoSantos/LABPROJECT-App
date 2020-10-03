@@ -4,6 +4,7 @@
 
 .body {
   padding: 50px;
+  background: #f2f8fe;
 }
 
 .center-div {
@@ -50,4 +51,24 @@
 
 .mr-auto {
   padding: 0px !important;
+}
+
+
+.list-container{
+  margin-top: 5%;
+}
+
+.list-container-header{
+  font-size: 1.87rem;
+  margin-bottom: 2% !important;
+
+}
+
+.list-container mat-card{
+  width: 100%;
+}
+
+mat-list-item{
+
+  margin-bottom: 4%;
 }

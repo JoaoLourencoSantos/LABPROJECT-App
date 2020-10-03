@@ -21,6 +21,7 @@ import { SiginComponent } from './pages/sigin/sigin.component';
     ExpenseComponent,
     LoginComponent,
     SiginComponent,
+    ExpenseComponent,
   ],
   imports: [
     BrowserModule,

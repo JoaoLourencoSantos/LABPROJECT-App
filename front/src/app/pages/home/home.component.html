@@ -6,9 +6,7 @@
           <mat-card-header>
             <div class="row">
               <div class="col-md">
-                <mat-icon aria-hidden="false" aria-label="icon icon-primary"
-                  >local_atm</mat-icon
-                >
+                <mat-icon aria-hidden="false" aria-label="icon icon-primary">local_atm</mat-icon>
               </div>
               <div class="col-md">
                 <h2>Receitas</h2>
@@ -31,9 +29,7 @@
           <mat-card-header>
             <div class="row">
               <div class="col-md">
-                <mat-icon aria-hidden="false" aria-label="icon icon-primary"
-                  >shopping_cart</mat-icon
-                >
+                <mat-icon aria-hidden="false" aria-label="icon icon-primary">shopping_cart</mat-icon>
               </div>
               <div class="col-md">
                 <h2>Despesas</h2>
@@ -65,5 +61,22 @@
         </div>
       </div>
     </mat-card>
+
+    <mat-list class="list-container">
+      <div mat-subheader class="list-container-header">Entradas</div>
+      <mat-list-item *ngFor="let item of list">
+        <mat-card>
+          <div class="d-flex">
+            <div class="mr-auto p-2">
+              <h2>{{item.name}}: <span class="saldo-total">+ R$ {{item.value}}</span></h2>
+            </div>
+            <div class="p-2">
+              <button mat-button>Editar entrada</button>
+            </div>
+          </div>
+        </mat-card>
+      </mat-list-item>
+    </mat-list>
+
   </div>
 </div>
