@@ -24,10 +24,11 @@ export class ExpenseComponent implements OnInit {
 
   submit = async () => {
     console.log(
-      'valor:' + this.valor,
-      'categoria:' + this.categoria,
-      'data:' + this.data,
-      'descricao:' + this.descricao
+      'valor: ' + this.valor,
+      'categoria: ' + this.categoria,
+      'data: ' + this.data,
+      'descricao: ' + this.descricao,
+      'tipo: ' + this.tipo
     );
 
     if (!this.valor || !this.categoria || !this.data || !this.descricao) {
@@ -40,7 +41,7 @@ export class ExpenseComponent implements OnInit {
         name: this.descricao,
         value: this.valor,
         referenceAt: this.data,
-        type: 'EXPENSE',
+        type: this.tipo,
       })
       .subscribe((result) => {
         if (result && result.sucess) {

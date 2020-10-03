@@ -1,8 +1,12 @@
 <div class="center-screen">
 	<mat-card class="card">
-		<mat-card-title class="card-title">Cadastro Despesa</mat-card-title>
+    <mat-card-title class="card-title">Cadastro</mat-card-title>
+		<mat-button-toggle-group appearance="legacy" [(ngModel)]="this.tipo"  name="tipo">
+      <mat-button-toggle class="c-light-green" value="receita">Receita</mat-button-toggle>
+      <mat-button-toggle class="c-light-red" value="despesa">Despesa</mat-button-toggle>
+    </mat-button-toggle-group>
 		<mat-card-content class="card-content">
-			<form class="form container">
+      <form class="form container">
         <br>
         <mat-form-field appearance="standard">
           <mat-label>Valor</mat-label>
@@ -27,7 +31,6 @@
         <mat-form-field appearance="standard">
           <mat-label>Descrição</mat-label>
           <textarea matInput [(ngModel)]="this.descricao"  name="descricao"></textarea>
-          <input matInput placeholder="McDonalds" />
         </mat-form-field>
         <div class="form-actions">
 					<button (click)='this.submit()' mat-raised-button class="login-button c-yellow">
