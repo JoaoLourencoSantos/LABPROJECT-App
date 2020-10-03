@@ -15,7 +15,7 @@ export class UserService {
 
   auth = async (username, password) => {
     let result: any = { sucess: true, error: null };
-    await this.sendPost(username, password)
+    await this.sendPost({ username, password }, '/auth/login/')
       .toPromise()
       .then((response) => {
         console.log(response);
@@ -35,15 +35,32 @@ export class UserService {
     return result;
   };
 
-  sendPost(username, password): Observable<any> {
-    return this.http.post<any>(
-      `${this.API_BASEPATH}/auth/login/`,
-      {
-        username,
-        password,
-      },
-      { headers: { 'Content-Type': 'application/json' } }
-    );
+  registerUser = async (name, email, password) => {
+    let result: any = { sucess: true, error: null };
+    await this.sendPost({ name, email, password }, '/user/')
+      .toPromise()
+      .then((response) => {
+        console.log(response);
+
+        if (!response.sucess) {
+          result.sucess = false;
+          result.error = response.message;
+        } else {
+          this.setSessao({ token: response.access_token, body: response.body });
+        }
+      })
+      .catch((err) => {
+        result.sucess = false;
+        result.error = 'Erro no servidor';
+      });
+
+    return result;
+  };
+
+  sendPost(body, url): Observable<any> {
+    return this.http.post<any>(`${this.API_BASEPATH}${url}`, body, {
+      headers: { 'Content-Type': 'application/json' },
+    });
   }
 
   setSessao(identificador: any): void {

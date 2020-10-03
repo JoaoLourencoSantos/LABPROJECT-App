@@ -1,28 +1,30 @@
 <div class="center-screen">
-	<mat-card class="card">
-		<mat-card-title class="card-title">Login</mat-card-title>
-		<mat-card-content class="card-content">
-			<form class="form container" (ngSubmit)='this.login()'>
-				<mat-form-field>
-					<mat-label>Email</mat-label>
-					<input matInput placeholder="Email" [(ngModel)]="this.username"
-						[ngModelOptions]="{ standalone: true }" />
-				</mat-form-field>
-				<br />
-				<mat-form-field>
-					<mat-label>Senha</mat-label>
-					<input matInput type="password" placeholder="*****" [(ngModel)]="this.password"
-						[ngModelOptions]="{ standalone: true }" />
-				</mat-form-field>
-				<br />
-				<div class="form-actions">
-					<span> Esqueceu a Senha?</span>
-					<br />
-					<button (click)='this.login()' mat-raised-button class="login-button c-yellow">
-						Entrar
-					</button>
-				</div>
-			</form>
-		</mat-card-content>
-	</mat-card>
+  <mat-card class="card">
+    <mat-card-title class="card-title">Login</mat-card-title>
+    <mat-card-content class="card-content">
+      <form class="form container" (ngSubmit)='this.login()'>
+        <mat-form-field>
+          <mat-label>Email</mat-label>
+          <input matInput placeholder="Email" [(ngModel)]="this.username" [ngModelOptions]="{ standalone: true }" />
+        </mat-form-field>
+        <br />
+        <mat-form-field>
+          <mat-label>Senha</mat-label>
+          <input matInput type="password" placeholder="*****" [(ngModel)]="this.password"
+            [ngModelOptions]="{ standalone: true }" />
+        </mat-form-field>
+        <br />
+        <div class="form-actions">
+          <span> Esqueceu a Senha?</span>
+          <br />
+          <button (click)='this.login()' mat-raised-button class="login-button c-yellow">
+            Entrar
+          </button>
+
+          <div routerLink="/sigin" class="register"> Registrar-se ?</div>
+
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
 </div>
