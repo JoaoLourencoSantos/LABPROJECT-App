@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, Request, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, Query, Request, ValidationPipe } from '@nestjs/common';
 
 import { EntryDTO } from './../dto/entry.dto';
 import { ResponseDTO } from './../dto/response.dto';
@@ -16,8 +16,8 @@ export class EntryController {
   }
 
   @Get()
-  async findAll(): Promise<ResponseDTO> {
-    return this.service.findAll();
+  async findAll(@Query() query): Promise<ResponseDTO> {
+    return this.service.findAll( query);
   }
 
   @Get("/one/:id")

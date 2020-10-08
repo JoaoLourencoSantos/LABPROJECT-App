@@ -12,11 +12,21 @@ export class EntryService {
     @InjectRepository(Entry) public readonly entryRepository: Repository<Entry>
   ) {}
 
-  async findAll(): Promise<ResponseDTO> {
+  async findAll({type}): Promise<ResponseDTO> {
     try {
+
+      if (!type) {
+        return new ResponseDTO(
+          "Found users",
+          await this.entryRepository.find(),
+          200,
+          true
+        );
+      }
+
       return new ResponseDTO(
         "Found users",
-        await this.entryRepository.find(),
+        await this.entryRepository.find({type}),
         200,
         true
       );
