@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { EntryService } from 'src/app/services/entry.service';
+
 import { ToastService } from './../../services/toast.service';
 
 @Component({
@@ -26,6 +27,8 @@ export class ExpenseComponent implements OnInit {
   setBudgetForm = () => {
     const categoria = document.getElementById('category-field');
 
+    this.tipo = 'PROFIT';
+
     categoria.hidden = true;
     this.budgetButtonStyle = 'c-light-green';
     this.spendingButtonStyle = '';
@@ -33,6 +36,8 @@ export class ExpenseComponent implements OnInit {
 
   setSpendingForm = () => {
     const categoria = document.getElementById('category-field');
+
+    this.tipo = 'EXPENSE';
 
     categoria.hidden = false;
     this.budgetButtonStyle = '';
