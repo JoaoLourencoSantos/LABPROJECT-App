@@ -92,7 +92,7 @@ class UserService {
     try {
       const user: User = await this.userReporitory.updateUser(userPutDTO);
 
-      return new ResponseDTO("Updated", user, 201, true);
+      return new ResponseDTO("Updated", await this.userReporitory.findOne(user.id), 201, true);
     } catch (exception) {
       throw new InternalServerErrorException(
         "Erro in update user: " + exception.message

@@ -1,6 +1,6 @@
 import { BadRequestException, Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { getRepository, Repository } from 'typeorm';
 
 import { ResponseDTO } from '../dto/response.dto';
 import Entry from '../models/entry';
@@ -12,9 +12,8 @@ export class EntryService {
     @InjectRepository(Entry) public readonly entryRepository: Repository<Entry>
   ) {}
 
-  async findAll({type}): Promise<ResponseDTO> {
+  async findAll({ type, month}): Promise<ResponseDTO> {
     try {
-
       if (!type) {
         return new ResponseDTO(
           "Found users",
@@ -24,12 +23,17 @@ export class EntryService {
         );
       }
 
-      return new ResponseDTO(
-        "Found users",
-        await this.entryRepository.find({type}),
-        200,
-        true
-      );
+      const searchMonth: number = month ? month : new Date().getMonth() + 1;
+
+      console.log(searchMonth);
+
+      const list: any[] = await getRepository(Entry)
+        .createQueryBuilder("entry")
+        .where("entry.type = :type", { type })
+        .andWhere("strftime('%m', entry.reference_at) = :month", { month : searchMonth.toString()})
+        .getMany();
+
+      return new ResponseDTO("Found entrys", list, 200, true);
     } catch (exception) {
       throw new InternalServerErrorException(
         "Erro in find users: " + exception.message

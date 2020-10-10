@@ -12,18 +12,6 @@ export class UserPutDTO {
   })
   name: string;
 
-  @IsNotEmpty({
-    message: 'Email must not be null',
-  })
-  @IsEmail(
-    {},
-    {
-      message: 'Email must be valid',
-    },
-  )
-  @MaxLength(200, {
-    message: 'Email not must be longer than 200 characters',
-  })
   email: string;
   
   dateBirth: Date;

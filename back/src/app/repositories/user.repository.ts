@@ -18,9 +18,12 @@ export class UserRepository extends Repository<User> {
   async updateUser({ id, email, name, dateBirth }): Promise<User> {
     const user = new User();
     user.id = id;
-    user.email = email;
     user.name = name;
     user.dateBirth = dateBirth;
+
+    if (email) {
+      user.email = email;
+    }
 
     return await this.save(user);
   }
