@@ -57,8 +57,41 @@ export class UserService {
     return result;
   };
 
+  updateUser = async (id, name, email, password) => {
+    let result: any = { sucess: true, error: null };
+
+    const body = !password ? { id, name, email } : { id, name, email, password };
+
+    console.log(body);
+
+    await this.sendPut(body, '/user/')
+      .toPromise()
+      .then((response) => {
+        console.log(response);
+
+        if (!response.sucess) {
+          result.sucess = false;
+          result.error = response.message;
+        } else {
+          this.setSessao({ token: response.access_token, body: response.body });
+        }
+      })
+      .catch((err) => {
+        result.sucess = false;
+        result.error = 'Erro no servidor';
+      });
+
+    return result;
+  };
+
   sendPost(body, url): Observable<any> {
     return this.http.post<any>(`${this.API_BASEPATH}${url}`, body, {
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
+
+  sendPut(body, url): Observable<any> {
+    return this.http.put<any>(`${this.API_BASEPATH}${url}`, body, {
       headers: { 'Content-Type': 'application/json' },
     });
   }

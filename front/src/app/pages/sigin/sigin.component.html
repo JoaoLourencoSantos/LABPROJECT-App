@@ -1,6 +1,8 @@
 <div class="center-screen">
   <mat-card class="card">
-    <mat-card-title class="card-title">Cadastrar-se</mat-card-title>
+    <mat-card-title class="card-title">
+      {{!service.isAuthenticated() ?' Cadastrar-se' : 'Atualizar Informações'}}
+    </mat-card-title>
     <mat-card-content class="card-content">
       <form class="form container">
         <mat-form-field>
@@ -21,11 +23,11 @@
         <br />
 
         <div class="form-actions">
-          <button (click)='this.register()' mat-raised-button class="login-button c-yellow">
-            Cadastrar-se
+          <button (click)='this.send()' mat-raised-button class="login-button c-yellow">
+            {{!service.isAuthenticated() ?' Cadastrar-se' : 'Atualizar'}}
           </button>
 
-          <div routerLink="/login" class="register"> Logar ?</div>
+          <div *ngIf="!service.isAuthenticated()" routerLink="/login" class="register"> Logar ?</div>
 
         </div>
       </form>

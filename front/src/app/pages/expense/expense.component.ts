@@ -53,7 +53,7 @@ export class ExpenseComponent implements OnInit {
       'tipo: ' + this.tipo
     );
 
-    if (!this.valor || !this.categoria || !this.data || !this.descricao) {
+    if (!this.valor || !this.data || !this.descricao) {
       this.toast.infoErroAlert();
       return;
     }
