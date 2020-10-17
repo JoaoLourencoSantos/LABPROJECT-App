@@ -30,4 +30,16 @@ export class EntryService {
       headers: { 'Content-Type': 'application/json' },
     });
   }
+
+  findAllByType(type: string): Observable<ResponseDTO> {
+    return this.http.get<ResponseDTO>(`${this.API_BASEPATH}/entry?type=${type}`, {
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
+
+  findIndicators(): Observable<ResponseDTO> {
+    return this.http.get<ResponseDTO>(`${this.API_BASEPATH}/entry/indicators`, {
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
 }
