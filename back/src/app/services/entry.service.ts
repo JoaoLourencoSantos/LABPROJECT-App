@@ -12,7 +12,7 @@ export class EntryService {
     @InjectRepository(Entry) public readonly entryRepository: Repository<Entry>
   ) {}
 
-  async findAll({ type, month}): Promise<ResponseDTO> {
+  async findAll({ type, month }): Promise<ResponseDTO> {
     try {
       if (!type) {
         return new ResponseDTO(
@@ -28,7 +28,9 @@ export class EntryService {
       const list: any[] = await this.entryRepository
         .createQueryBuilder("entry")
         .where("entry.type = :type", { type })
-        .andWhere("strftime('%m', entry.reference_at) = :month", { month : searchMonth.toString()})
+        .andWhere("strftime('%m', entry.reference_at) = :month", {
+          month: searchMonth.toString(),
+        })
         .getMany();
 
       return new ResponseDTO("Found entrys", list, 200, true);
@@ -58,6 +60,48 @@ export class EntryService {
     }
 
     return new ResponseDTO("Found users", result, 200, true);
+  }
+
+  async findIndicators({ month }): Promise<ResponseDTO> {
+    try {
+      //PROFIT // EXPENSE
+
+      const searchMonth: number = month ? month : new Date().getMonth() + 1;
+
+      const values: any = await this.entryRepository
+        .createQueryBuilder()
+        .select(["(COALESCE(subQuery.totalProfits +  (subQuery.totalExpenses * -1), 0)) as totalPeriod", "COALESCE(subQuery.totalExpenses, 0) as totalExpenses", "COALESCE(subQuery.totalProfits, 0) as totalProfits"]) 
+        .from((query) => {
+          return query
+            .select([])
+            .addSelect((qb) => {
+              return qb
+                .select("SUM(entry.value)", "totalExpenses")
+                .from(Entry, "entry")
+                .where("entry.type = 'EXPENSE'")
+                .andWhere("strftime('%m', entry.reference_at) = :month", {
+                  month: searchMonth.toString(),
+                });
+            }, "totalExpenses")
+            .addSelect((qb) => {
+              return qb
+                .select("SUM(entry.value)", "totalProfits")
+                .from(Entry, "entry")
+                .where("entry.type = 'PROFIT'")
+                .andWhere("strftime('%m', entry.reference_at) = :month", {
+                  month: searchMonth.toString(),
+                });
+            }, "totalProfits")
+            .from(Entry, "entry");
+        }, "subQuery")
+        .getRawOne();
+
+      return new ResponseDTO("Found indicators", values, 200, true);
+    } catch (exception) {
+      throw new InternalServerErrorException(
+        "Erro in find users: " + exception.message
+      );
+    }
   }
 
   async create(entryDTO: EntryDTO): Promise<ResponseDTO> {

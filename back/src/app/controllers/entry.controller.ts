@@ -25,6 +25,11 @@ export class EntryController {
     return this.service.find(params);
   }
 
+  @Get("/indicators")
+  async findIndicators(@Query() query): Promise<ResponseDTO> {
+    return this.service.findIndicators( query);
+  }
+
   @Post()
   async create(@Body(ValidationPipe) entry: EntryDTO): Promise<ResponseDTO> {
     return this.service.create(entry);
