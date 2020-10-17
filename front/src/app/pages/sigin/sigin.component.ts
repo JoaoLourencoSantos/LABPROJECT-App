@@ -17,7 +17,7 @@ export class SiginComponent implements OnInit {
   id: number;
 
   constructor(
-    private service: UserService,
+    public service: UserService,
     private router: Router,
     private toast: ToastService
   ) {}

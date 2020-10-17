@@ -1,6 +1,6 @@
 import { BadRequestException, Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { getRepository, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
 
 import { ResponseDTO } from '../dto/response.dto';
 import Entry from '../models/entry';
@@ -25,9 +25,7 @@ export class EntryService {
 
       const searchMonth: number = month ? month : new Date().getMonth() + 1;
 
-      console.log(searchMonth);
-
-      const list: any[] = await getRepository(Entry)
+      const list: any[] = await this.entryRepository
         .createQueryBuilder("entry")
         .where("entry.type = :type", { type })
         .andWhere("strftime('%m', entry.reference_at) = :month", { month : searchMonth.toString()})
