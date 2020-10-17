@@ -15,7 +15,19 @@ export class HomeComponent implements OnInit {
     this.populate();
   }
 
-  populate() {
+  openExpenses(item: any): void {
+    window.location.pathname = '/expenses';
+    localStorage.setItem('item_update', JSON.stringify(item));
+
+    this.delete(item.id);
+  }
+
+  delete(item: any): void {
+    this.entryService
+      .delete(item.id);
+  }
+
+  populate(): void {
     this.entryService.findAll().subscribe((result) => {
       if (result) {
         console.log(result);

@@ -22,7 +22,17 @@ export class ExpenseComponent implements OnInit {
     private toast: ToastService
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if (localStorage.getItem('item_update')) {
+      const item = JSON.parse(localStorage.getItem('item_update')).item;
+      this.descricao = item.descricao;
+      this.valor = item.valor;
+      this.data = item.data;
+      this.tipo = item.tipo;
+
+      localStorage.setItem('item_update', '');
+    }
+  }
 
   setBudgetForm = () => {
     const categoria = document.getElementById('category-field');

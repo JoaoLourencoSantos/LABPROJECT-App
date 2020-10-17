@@ -71,7 +71,10 @@
               <h2>{{item.name}}: <span class="saldo-total">+ R$ {{item.value}}</span></h2>
             </div>
             <div class="p-2">
-              <button mat-button>Editar entrada</button>
+              <button (click)='this.openExpenses(item)' mat-button>Editar entrada</button>
+            </div>
+            <div class="p-2">
+              <button (click)='this.delete()' mat-button>Excluir entrada</button>
             </div>
           </div>
         </mat-card>
