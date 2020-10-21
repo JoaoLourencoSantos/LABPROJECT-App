@@ -30,4 +30,22 @@ export class EntryService {
       headers: { 'Content-Type': 'application/json' },
     });
   }
+
+  findAllByMonth(month): Observable<ResponseDTO> {
+    return this.http.get<ResponseDTO>(`${this.API_BASEPATH}/entry?month=${month}`, {
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
+
+  findAllByType(type: string): Observable<ResponseDTO> {
+    return this.http.get<ResponseDTO>(`${this.API_BASEPATH}/entry?type=${type}`, {
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
+
+  findIndicatorsByMonth(month): Observable<ResponseDTO> {
+    return this.http.get<ResponseDTO>(`${this.API_BASEPATH}/entry/indicators?month=${month}`, {
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
 }
