@@ -1,6 +1,24 @@
 <div class="body">
   <div class="container">
-    <div mat-subheader class="list-container-header">Informações gerais do mês de {{monthName}}</div>
+    <div class="d-flex">
+      <div class="mr-auto p-2">
+        <div mat-subheader class="list-container-header">
+          Informações gerais do mês de {{monthName.toLowerCase()}}
+        </div>
+      </div>
+      <div class="p-2">
+        <mat-form-field appearance="fill">
+          <mat-label>Selecione o mês</mat-label>
+          <mat-select [(value)]="monthName" (valueChange)="mudarMes()">
+            <mat-option *ngFor="let month of monthNames" [value]="month">
+              {{month}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+      </div>
+    </div>
+
     <div class="row">
       <div class="col-md">
         <mat-card class="card mx-auto receita">

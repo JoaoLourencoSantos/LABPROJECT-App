@@ -11,13 +11,15 @@ export class HomeComponent implements OnInit {
   list: any = [];
   indicators: any = {};
 
-  monthNames = ["janeiro", "fevereiro", "março", "abril", "maio", "junho",
-    "julho", "augusto", "setembro", "outubro", "novembro", "dezembro"
+  monthNames = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
+    "Julho", "Augusto", "Setembro", "Outubro", "Novembro", "Dezembro"
   ];
 
   d = new Date();
 
   monthName = "";
+
+  selectedMonth;
 
   constructor(private entryService: EntryService, public dialog: MatDialog) {}
 
@@ -27,8 +29,14 @@ export class HomeComponent implements OnInit {
     });
   }
 
+  mudarMes(){
+    this.selectedMonth = this.monthNames.indexOf(this.monthName) + 1;
+    this.populate();
+  }
+
   ngOnInit(): void {
-    this.monthName = this.monthNames[this.d.getMonth()];
+    this.selectedMonth = this.d.getMonth() + 1;
+    this.monthName = this.monthNames[this.selectedMonth - 1];
     this.populate();
   }
 
@@ -45,7 +53,7 @@ export class HomeComponent implements OnInit {
   }
 
   populate(): void {
-    this.entryService.findAll().subscribe((result) => {
+    this.entryService.findAllByMonth(this.selectedMonth).subscribe((result) => {
       if (result) {
         console.log(result);
 
@@ -53,7 +61,7 @@ export class HomeComponent implements OnInit {
       }
     });
 
-    this.entryService.findIndicators().subscribe((result) => {
+    this.entryService.findIndicatorsByMonth(this.selectedMonth).subscribe((result) => {
       if (result) {
         this.indicators = result.body;
       }
