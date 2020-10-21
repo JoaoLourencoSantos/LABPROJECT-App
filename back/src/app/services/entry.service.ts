@@ -1,10 +1,15 @@
-import { BadRequestException, Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import {
+  BadRequestException,
+  Injectable,
+  InternalServerErrorException,
+  NotFoundException,
+} from "@nestjs/common";
+import { InjectRepository } from "@nestjs/typeorm";
+import { Repository } from "typeorm";
 
-import { ResponseDTO } from '../dto/response.dto';
-import Entry from '../models/entry';
-import { EntryDTO } from './../dto/entry.dto';
+import { ResponseDTO } from "../dto/response.dto";
+import Entry from "../models/entry";
+import { EntryDTO } from "./../dto/entry.dto";
 
 @Injectable()
 export class EntryService {
@@ -14,24 +19,26 @@ export class EntryService {
 
   async findAll({ type, month }): Promise<ResponseDTO> {
     try {
-      if (!type) {
-        return new ResponseDTO(
-          "Found users",
-          await this.entryRepository.find(),
-          200,
-          true
-        );
-      }
-
       const searchMonth: number = month ? month : new Date().getMonth() + 1;
 
-      const list: any[] = await this.entryRepository
-        .createQueryBuilder("entry")
-        .where("entry.type = :type", { type })
-        .andWhere("strftime('%m', entry.reference_at) = :month", {
-          month: searchMonth.toString(),
-        })
-        .getMany();
+      let list: any[] = [];
+
+      if (type) {
+        list = await this.entryRepository
+          .createQueryBuilder("entry")
+          .where("entry.type = :type", { type })
+          .andWhere("strftime('%m', entry.reference_at) = :month", {
+            month: searchMonth.toString(),
+          })
+          .getMany();
+      } else {
+        list = await this.entryRepository
+          .createQueryBuilder("entry")
+          .andWhere("strftime('%m', entry.reference_at) = :month", {
+            month: searchMonth.toString(),
+          })
+          .getMany();
+      }
 
       return new ResponseDTO("Found entrys", list, 200, true);
     } catch (exception) {
@@ -70,7 +77,11 @@ export class EntryService {
 
       const values: any = await this.entryRepository
         .createQueryBuilder()
-        .select(["(COALESCE(subQuery.totalProfits +  (subQuery.totalExpenses * -1), 0)) as totalPeriod", "COALESCE(subQuery.totalExpenses, 0) as totalExpenses", "COALESCE(subQuery.totalProfits, 0) as totalProfits"]) 
+        .select([
+          "(COALESCE(subQuery.totalProfits +  (subQuery.totalExpenses * -1), 0)) as totalPeriod",
+          "COALESCE(subQuery.totalExpenses, 0) as totalExpenses",
+          "COALESCE(subQuery.totalProfits, 0) as totalProfits",
+        ])
         .from((query) => {
           return query
             .select([])
