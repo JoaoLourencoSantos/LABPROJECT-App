@@ -12,6 +12,7 @@ import { ExpenseComponent } from './pages/expense/expense.component';
 import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
 import { SiginComponent } from './pages/sigin/sigin.component';
+import { CategoryComponent } from './pages/category/category.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { SiginComponent } from './pages/sigin/sigin.component';
     LoginComponent,
     SiginComponent,
     ExpenseComponent,
+    CategoryComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { EntryService } from 'src/app/services/entry.service';
+import {MatDialog, MAT_DIALOG_DATA} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-home',
@@ -8,10 +9,34 @@ import { EntryService } from 'src/app/services/entry.service';
 })
 export class HomeComponent implements OnInit {
   list: any = [];
+  indicators: any = {};
 
-  constructor(private entryService: EntryService) {}
+  monthNames = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
+    "Julho", "Augusto", "Setembro", "Outubro", "Novembro", "Dezembro"
+  ];
+
+  d = new Date();
+
+  monthName = "";
+
+  selectedMonth;
+
+  constructor(private entryService: EntryService, public dialog: MatDialog) {}
+
+  openDialog() {
+    this.dialog.open(ModalCalcDialog, {
+      data: this.indicators,
+    });
+  }
+
+  mudarMes(){
+    this.selectedMonth = this.monthNames.indexOf(this.monthName) + 1;
+    this.populate();
+  }
 
   ngOnInit(): void {
+    this.selectedMonth = this.d.getMonth() + 1;
+    this.monthName = this.monthNames[this.selectedMonth - 1];
     this.populate();
   }
 
@@ -28,12 +53,28 @@ export class HomeComponent implements OnInit {
   }
 
   populate(): void {
-    this.entryService.findAll().subscribe((result) => {
+    this.entryService.findAllByMonth(this.selectedMonth).subscribe((result) => {
       if (result) {
         console.log(result);
 
         this.list = result.body;
       }
     });
+
+    this.entryService.findIndicatorsByMonth(this.selectedMonth).subscribe((result) => {
+      if (result) {
+        this.indicators = result.body;
+      }
+    });
   }
+}
+
+
+@Component({
+  selector: 'modal-calc',
+  templateUrl: 'modal-calc.html',
+  styleUrls: ['./home.component.scss'],
+})
+export class ModalCalcDialog {
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any) {}
 }

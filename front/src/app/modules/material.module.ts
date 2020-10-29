@@ -1,3 +1,4 @@
+import { ModalEditDialog } from './../pages/category/category.component';
 import { NgModule } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -14,10 +15,11 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 
-@NgModule({
-  exports: [
-    MatButtonModule,
+const modules = [
+  MatButtonModule,
     MatIconModule,
     MatMenuModule,
     MatToolbarModule,
@@ -32,6 +34,15 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
     MatRadioModule,
     MatDatepickerModule,
     MatButtonToggleModule,
-  ],
+    FormsModule,
+    ReactiveFormsModule
+];
+
+@NgModule({
+  imports: [...modules],
+  exports: [...modules],
+  declarations: [
+    ModalEditDialog
+  ]
 })
 export class MaterialModule {}

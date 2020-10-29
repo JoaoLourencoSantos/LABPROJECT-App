@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CategoryService } from 'src/app/services/category.service';
 import { EntryService } from 'src/app/services/entry.service';
 
 import { ToastService } from './../../services/toast.service';
@@ -17,9 +18,12 @@ export class ExpenseComponent implements OnInit {
   budgetButtonStyle: string;
   spendingButtonStyle = 'c-light-red';
 
+  list = [];
+
   constructor(
     private entryService: EntryService,
-    private toast: ToastService
+    private toast: ToastService,
+    private categoryService: CategoryService
   ) {}
 
   ngOnInit(): void {
@@ -31,27 +35,27 @@ export class ExpenseComponent implements OnInit {
       this.tipo = item.tipo;
 
       localStorage.setItem('item_update', '');
+
+      this.getCategories();
     }
   }
 
   setBudgetForm = () => {
-    const categoria = document.getElementById('category-field');
 
     this.tipo = 'PROFIT';
-
-    categoria.hidden = true;
     this.budgetButtonStyle = 'c-light-green';
     this.spendingButtonStyle = '';
+
+    this.getCategories();
   }
 
   setSpendingForm = () => {
-    const categoria = document.getElementById('category-field');
 
     this.tipo = 'EXPENSE';
-
-    categoria.hidden = false;
     this.budgetButtonStyle = '';
     this.spendingButtonStyle = 'c-light-red';
+
+    this.getCategories();
   }
 
   submit = async () => {
@@ -80,5 +84,15 @@ export class ExpenseComponent implements OnInit {
           this.toast.successAlert();
         }
       });
-  };
+  }
+
+  getCategories = () => {
+    this.categoryService
+      .findAllByType(this.tipo)
+      .subscribe((result) => {
+        if (result && result.sucess) {
+          this.list = result.body;
+        }
+      });
+  }
 }

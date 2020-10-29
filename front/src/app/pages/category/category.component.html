@@ -1,0 +1,46 @@
+<div class="center-screen">
+	<mat-card class="card">
+    <mat-card-title class="card-title">Categorias</mat-card-title>
+		<mat-button-toggle-group>
+      <mat-button-toggle id="spending-button" (click)='this.setSpendingForm()' class="{{this.spendingButtonStyle}}" value="despesa">Despesa</mat-button-toggle>
+      <mat-button-toggle id="budget-button" (click)='this.setBudgetForm()' class="{{this.budgetButtonStyle}}" value="receita">Receita</mat-button-toggle>
+    </mat-button-toggle-group>
+		<mat-card-content class="card-content">
+      <form class="form container">
+        <br>
+        <mat-form-field appearance="standard">
+          <mat-label>Nome</mat-label>
+          <input matInput [(ngModel)]="this.nome" name="valor"/>
+        </mat-form-field>
+        <div class="form-actions">
+					<button mat-raised-button (click)='this.submit()' class="login-button c-yellow">
+						Salvar
+					</button>
+        </div>
+        <br><br>
+        <div style="max-height: 50px;">
+          <mat-list class="list-container" >
+            <mat-list-item *ngFor="let item of list">
+              <mat-card>
+                <div class="d-flex">
+                  <div class="mr-auto p-2">
+                    <h2>{{item.description}}</h2>
+                  </div>
+                  <div class="p-2">
+                    <button (click)='this.openDialog(item)' mat-button>Editar</button>
+                  </div>
+                  <div class="p-2">
+                    <button (click)='this.delete(item.id)' mat-button>Excluir</button>
+                  </div>
+                </div>
+              </mat-card>
+            </mat-list-item>
+          </mat-list>
+        </div>
+
+      </form>
+
+
+		</mat-card-content>
+	</mat-card>
+</div>
