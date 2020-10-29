@@ -1,20 +1,17 @@
-import {
-  BadRequestException,
-  Injectable,
-  InternalServerErrorException,
-  NotFoundException,
-} from "@nestjs/common";
-import { InjectRepository } from "@nestjs/typeorm";
-import { Repository } from "typeorm";
+import { BadRequestException, Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 
-import { ResponseDTO } from "../dto/response.dto";
-import Entry from "../models/entry";
-import { EntryDTO } from "./../dto/entry.dto";
+import { ResponseDTO } from '../dto/response.dto';
+import Category from '../models/category';
+import Entry from '../models/entry';
+import { EntryDTO } from './../dto/entry.dto';
 
 @Injectable()
 export class EntryService {
   public constructor(
-    @InjectRepository(Entry) public readonly entryRepository: Repository<Entry>
+    @InjectRepository(Entry) public readonly entryRepository: Repository<Entry>,
+    @InjectRepository(Entry) public readonly categoryRepository: Repository<Category>
   ) {}
 
   async findAll({ type, month }): Promise<ResponseDTO> {
@@ -26,7 +23,10 @@ export class EntryService {
       if (type) {
         list = await this.entryRepository
           .createQueryBuilder("entry")
+          .select()
+          .addSelect(['category.description'])
           .where("entry.type = :type", { type })
+          .leftJoinAndSelect("entry.category", "category")
           .andWhere("strftime('%m', entry.reference_at) = :month", {
             month: searchMonth.toString(),
           })
@@ -34,6 +34,7 @@ export class EntryService {
       } else {
         list = await this.entryRepository
           .createQueryBuilder("entry")
+          .leftJoinAndSelect("entry.category", "category")
           .andWhere("strftime('%m', entry.reference_at) = :month", {
             month: searchMonth.toString(),
           })
@@ -117,11 +118,13 @@ export class EntryService {
 
   async create(entryDTO: EntryDTO): Promise<ResponseDTO> {
     try {
+      console.log("QUI")
       const newEntry = new Entry();
       newEntry.name = entryDTO.name;
       newEntry.value = Number(entryDTO.value);
       newEntry.type = entryDTO.type;
       newEntry.referenceAt = entryDTO.referenceAt;
+      newEntry.category = await this.categoryRepository.findOne(entryDTO.category);
 
       const entry: Entry = await this.entryRepository.save(newEntry);
 
@@ -141,6 +144,7 @@ export class EntryService {
       newEntry.value = Number(entryDTO.value);
       newEntry.type = entryDTO.type;
       newEntry.referenceAt = entryDTO.referenceAt;
+      newEntry.category = await this.categoryRepository.findOne(entryDTO.category);
 
       const entry: Entry = await this.entryRepository.save(newEntry);
 

@@ -63,6 +63,8 @@ export class CategoryService {
         newCategory
       );
 
+      console.log(category);
+
       return new ResponseDTO("Created", category, 201, true);
     } catch (exception) {
       throw new InternalServerErrorException(

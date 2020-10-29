@@ -24,39 +24,41 @@ export class ExpenseComponent implements OnInit {
     private entryService: EntryService,
     private toast: ToastService,
     private categoryService: CategoryService
-  ) {}
+  ) {
+    this.getCategories();
+
+    this.setSpendingForm();
+  }
 
   ngOnInit(): void {
-    if (localStorage.getItem('item_update')) {
-      const item = JSON.parse(localStorage.getItem('item_update')).item;
+    const toUpdate = JSON.parse(localStorage.getItem('item_update'));
+
+    if (toUpdate && toUpdate.item) {
+      const item = toUpdate.item;
       this.descricao = item.descricao;
       this.valor = item.valor;
       this.data = item.data;
       this.tipo = item.tipo;
 
       localStorage.setItem('item_update', '');
-
-      this.getCategories();
     }
   }
 
   setBudgetForm = () => {
-
     this.tipo = 'PROFIT';
     this.budgetButtonStyle = 'c-light-green';
     this.spendingButtonStyle = '';
 
     this.getCategories();
-  }
+  };
 
   setSpendingForm = () => {
-
     this.tipo = 'EXPENSE';
     this.budgetButtonStyle = '';
     this.spendingButtonStyle = 'c-light-red';
 
     this.getCategories();
-  }
+  };
 
   submit = async () => {
     console.log(
@@ -78,21 +80,21 @@ export class ExpenseComponent implements OnInit {
         value: this.valor,
         referenceAt: this.data,
         type: this.tipo,
+        category: this.categoria
       })
       .subscribe((result) => {
         if (result && result.sucess) {
           this.toast.successAlert();
         }
       });
-  }
+  };
 
   getCategories = () => {
-    this.categoryService
-      .findAllByType(this.tipo)
-      .subscribe((result) => {
-        if (result && result.sucess) {
-          this.list = result.body;
-        }
-      });
-  }
+    this.categoryService.findAllByType(this.tipo).subscribe((result) => {
+      if (result && result.sucess) {
+        console.log(result);
+        this.list = result.body;
+      }
+    });
+  };
 }

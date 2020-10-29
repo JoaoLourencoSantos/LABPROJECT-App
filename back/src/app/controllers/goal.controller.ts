@@ -1,12 +1,12 @@
 import { Body, Controller, Delete, Get, Param, Post, Put, Query, Request, ValidationPipe } from '@nestjs/common';
 
-import { CategoryDTO } from './../dto/category.dto';
+import { GoalDTO } from './../dto/goal.dto';
 import { ResponseDTO } from './../dto/response.dto';
-import { CategoryService } from './../services/category.service';
+import { GoalService } from './../services/goal.service';
 
-@Controller('category')
-export class CategoryController {
-    constructor(private readonly service: CategoryService) {}
+@Controller('goal')
+export class GoalController {
+    constructor(private readonly service: GoalService) {}
 
   @Get("/helf-check")
   async helfCheck(@Request() req): Promise<string> {
@@ -17,7 +17,7 @@ export class CategoryController {
 
   @Get()
   async findAll(@Query() query): Promise<ResponseDTO> {
-    return this.service.findAll( query);
+    return this.service.findAll();
   }
 
   @Get("/one/:id")
@@ -26,14 +26,14 @@ export class CategoryController {
   } 
 
   @Post()
-  async create(@Body(ValidationPipe) category: CategoryDTO): Promise<ResponseDTO> {
+  async create(@Body(ValidationPipe) goalDTO: GoalDTO): Promise<ResponseDTO> {
     console.log("aqui")
-    return this.service.create(category);
+    return this.service.create(goalDTO);
   }
 
   @Put()
-  async update(@Body(ValidationPipe) category: CategoryDTO): Promise<ResponseDTO> {
-    return this.service.update(category);
+  async update(@Body(ValidationPipe) goalDTO: GoalDTO): Promise<ResponseDTO> {
+    return this.service.update(goalDTO);
   }
 
   @Delete("/:id")

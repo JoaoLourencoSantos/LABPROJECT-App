@@ -3,9 +3,12 @@ import {
   CreateDateColumn,
   Double,
   Entity,
+  JoinColumn,
+  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import Category from './category';
 
 @Entity()
 export default class Entry {
@@ -20,6 +23,10 @@ export default class Entry {
 
   @Column({ nullable: false, type: 'varchar', length: 255 })
   type: string;
+
+  @OneToOne(type => Category)
+  @JoinColumn()
+  category: Category;
 
   @CreateDateColumn({ name: 'reference_at' })
   referenceAt: Date;

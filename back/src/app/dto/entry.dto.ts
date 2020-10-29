@@ -22,4 +22,6 @@ export class EntryDTO {
     message: 'Reference date must not be null',
   })
   referenceAt: Date;
+
+  category: number;
 }
