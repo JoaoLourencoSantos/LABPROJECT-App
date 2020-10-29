@@ -16,9 +16,9 @@
         <mat-form-field id="category-field" appearance="standard">
           <mat-label >Categoria</mat-label>
           <mat-select [(ngModel)]="this.categoria"  name="categoria">
-            <mat-option value="alimentacao">Alimentação</mat-option>
-            <mat-option value="lazer">Lazer</mat-option>
-            <mat-option value="transporte">Transporte</mat-option>
+            <mat-option *ngFor="let item of list" [value]="item.description">
+              {{item.description}}
+            </mat-option>
           </mat-select>
         </mat-form-field>
         <br>

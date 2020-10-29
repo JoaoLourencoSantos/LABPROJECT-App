@@ -1,0 +1,13 @@
+<div style="padding: 20px;">
+  <h1 mat-dialog-title>Editar categoria</h1>
+  <div mat-dialog-content>
+    <mat-form-field appearance="standard">
+      <mat-label>Nome</mat-label>
+      <input matInput value="{{description}}" [(ngModel)]="this.description" name="description" />
+    </mat-form-field>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button (click)='this.method()' cdkFocusInitial>Editar</button>
+  </div>
+</div>
+
