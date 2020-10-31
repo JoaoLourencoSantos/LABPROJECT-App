@@ -24,4 +24,16 @@ export class GoalService {
       headers: { 'Content-Type': 'application/json' },
     });
   }
+
+  update(body: any): Observable<ResponseDTO> {
+    return this.http.put<ResponseDTO>(`${this.API_BASEPATH}/goal/`, body, {
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
+
+  delete(id: string): Observable<ResponseDTO> {
+    return this.http.delete<ResponseDTO>(`${this.API_BASEPATH}/goal/${id}`, {
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
 }

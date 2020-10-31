@@ -4,7 +4,7 @@ import { GoalService } from 'src/app/services/goal.service';
 
 import { ToastService } from 'src/app/services/toast.service';
 
-import {MatDialog} from '@angular/material/dialog';
+import {MatDialog, MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-goal',
@@ -32,7 +32,7 @@ export class GoalComponent implements OnInit {
     if (!this.nome || !this.valor || !this.data) {
       this.toast.infoErroAlert();
       return;
-    } else if (this.list.length < 2)
+    } else if (this.list.length < 20)
     {
       this.toast.successAlert();
 
@@ -51,6 +51,17 @@ export class GoalComponent implements OnInit {
     } else {
       this.toast.fullAlert();
     }
+  }
+
+  delete = (id) => {
+    this.goalService
+      .delete(id)
+      .subscribe((result) => {
+        if (result && result.sucess) {
+          this.toast.successAlert();
+          this.getGoals();
+        }
+      });
   }
 
   getGoals = () => {
