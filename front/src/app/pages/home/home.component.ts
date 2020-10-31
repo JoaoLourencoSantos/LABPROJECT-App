@@ -11,13 +11,13 @@ export class HomeComponent implements OnInit {
   list: any = [];
   indicators: any = {};
 
-  monthNames = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
-    "Julho", "Augusto", "Setembro", "Outubro", "Novembro", "Dezembro"
+  monthNames = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
+    'Julho', 'Augusto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'
   ];
 
   d = new Date();
 
-  monthName = "";
+  monthName = '';
 
   selectedMonth;
 
