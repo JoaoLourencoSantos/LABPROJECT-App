@@ -34,6 +34,9 @@ export class ToastService {
   successAlert() {
     this.openSnackBar('A operação foi executada com sucesso!', 'snack-success');
   }
+  fullAlert() {
+    this.openSnackBar('O limite de objetivos a serem cadastrados foi atingido!', 'snack-error');
+  }
 
   openSnackBar(message: string, style: string) {
     this._snackBar.open(message, '', {

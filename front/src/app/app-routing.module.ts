@@ -1,5 +1,6 @@
+import { GoalComponent } from './pages/goal/goal.component';
 import { CategoryComponent } from './pages/category/category.component';
-import { NgModule } from '@angular/core';
+import { NgModule, Component } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { ExpenseComponent } from './pages/expense/expense.component';
@@ -14,6 +15,7 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'expenses', component: ExpenseComponent },
   { path: 'category', component: CategoryComponent },
+  { path: 'goal', component: GoalComponent },
 ];
 
 @NgModule({

@@ -13,6 +13,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
 import { SiginComponent } from './pages/sigin/sigin.component';
 import { CategoryComponent } from './pages/category/category.component';
+import { GoalComponent } from './pages/goal/goal.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { CategoryComponent } from './pages/category/category.component';
     SiginComponent,
     ExpenseComponent,
     CategoryComponent,
+    GoalComponent,
   ],
   imports: [
     BrowserModule,
