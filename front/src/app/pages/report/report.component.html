@@ -1,0 +1,44 @@
+<div class="body">
+  <div class="container">
+    <div class="d-flex">
+      <div style="margin: 50px 0px;" class="p-8">
+        <mat-form-field style="margin-right: 20px;" appearance="fill">
+          <mat-label>Selecione o mês</mat-label>
+          <mat-select [(value)]="monthName" (valueChange)="mudarMes()">
+            <mat-option *ngFor="let month of monthNames" [value]="month">
+              {{month}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Selecione o tipo de entrada</mat-label>
+          <mat-select [(value)]="this.selectedType" (valueChange)="mudarEntrada()">
+            <mat-option *ngFor="let type of types" [value]="type.value">
+              {{type.value}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <table class="table table-bordered table-striped table-hover">
+      <thead>
+        <tr>
+          <th> Descrição </th>
+          <th> Categoria </th>
+          <th> Valor </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of list">
+          <td>{{item.descricao}}</td>
+          <td>{{item.categoria}}</td>
+          <td>{{item.valor}}</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="pointer p-2">
+      <button class="fixed_button" mat-button>Exportar csv</button>
+    </div>
+  </div>
+</div>

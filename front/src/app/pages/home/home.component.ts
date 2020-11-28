@@ -55,8 +55,6 @@ export class HomeComponent implements OnInit {
   populate(): void {
     this.entryService.findAllByMonth(this.selectedMonth).subscribe((result) => {
       if (result) {
-        console.log(result);
-
         this.list = result.body;
       }
     });

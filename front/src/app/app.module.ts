@@ -14,6 +14,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { SiginComponent } from './pages/sigin/sigin.component';
 import { CategoryComponent } from './pages/category/category.component';
 import { GoalComponent } from './pages/goal/goal.component';
+import { ReportComponent } from './pages/report/report.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { GoalComponent } from './pages/goal/goal.component';
     ExpenseComponent,
     CategoryComponent,
     GoalComponent,
+    ReportComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,3 +1,4 @@
+import { ReportComponent } from './pages/report/report.component';
 import { GoalComponent } from './pages/goal/goal.component';
 import { CategoryComponent } from './pages/category/category.component';
 import { NgModule, Component } from '@angular/core';
@@ -16,6 +17,7 @@ const routes: Routes = [
   { path: 'expenses', component: ExpenseComponent },
   { path: 'category', component: CategoryComponent },
   { path: 'goal', component: GoalComponent },
+  { path: 'report', component: ReportComponent },
 ];
 
 @NgModule({
