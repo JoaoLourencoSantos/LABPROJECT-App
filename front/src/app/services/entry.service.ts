@@ -19,9 +19,15 @@ export class EntryService {
     });
   }
 
-  delete(id: string): Observable<ResponseDTO> {
-    return this.http.delete<ResponseDTO>(`${this.API_BASEPATH}/entry/:${id}`, {
+  update(body: any): Observable<ResponseDTO> {
+    return this.http.put<ResponseDTO>(`${this.API_BASEPATH}/entry/`, body, {
       headers: { 'Content-Type': 'application/json' },
+    });
+  }
+
+  delete(id: string): Observable<ResponseDTO> {
+    return this.http.delete<ResponseDTO>(`${this.API_BASEPATH}/entry/${id}`, {
+      headers: { 'Content-Type': 'application/json' }
     });
   }
 

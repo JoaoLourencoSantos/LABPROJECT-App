@@ -4,6 +4,8 @@ import {
   Double,
   Entity,
   JoinColumn,
+  ManyToOne,
+  OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
@@ -24,7 +26,7 @@ export default class Entry {
   @Column({ nullable: false, type: 'varchar', length: 255 })
   type: string;
 
-  @OneToOne(type => Category)
+  @ManyToOne(() => Category)
   @JoinColumn()
   category: Category;
 

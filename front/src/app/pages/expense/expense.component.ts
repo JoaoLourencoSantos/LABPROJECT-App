@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { CategoryService } from 'src/app/services/category.service';
 import { EntryService } from 'src/app/services/entry.service';
 
@@ -15,6 +16,8 @@ export class ExpenseComponent implements OnInit {
   data: Date;
   categoria: string;
   tipo: string;
+  id: any = null;
+
   budgetButtonStyle: string;
   spendingButtonStyle = 'c-light-red';
 
@@ -23,7 +26,8 @@ export class ExpenseComponent implements OnInit {
   constructor(
     private entryService: EntryService,
     private toast: ToastService,
-    private categoryService: CategoryService
+    private categoryService: CategoryService,
+    private router: Router
   ) {
     this.getCategories();
 
@@ -33,14 +37,21 @@ export class ExpenseComponent implements OnInit {
   ngOnInit(): void {
     const toUpdate = JSON.parse(localStorage.getItem('item_update'));
 
-    if (toUpdate && toUpdate.item) {
-      const item = toUpdate.item;
-      this.descricao = item.descricao;
-      this.valor = item.valor;
-      this.data = item.data;
-      this.tipo = item.tipo;
+    console.log(toUpdate);
 
-      localStorage.setItem('item_update', '');
+    if (toUpdate) {
+      const item = toUpdate;
+      this.id = toUpdate.id;
+      this.descricao = item.name;
+      this.valor = item.value;
+      this.data = item.referenceAt;
+      this.categoria = item.category ? item.category.id : null;
+
+      if (item.type === 'PROFIT') {
+        this.setBudgetForm();
+      }
+
+      localStorage.removeItem('item_update');
     }
   }
 
@@ -74,6 +85,26 @@ export class ExpenseComponent implements OnInit {
       return;
     }
 
+    if (this.id) {
+      this.entryService
+      .update({
+        id: this.id,
+        name: this.descricao,
+        value: this.valor,
+        referenceAt: this.data,
+        type: this.tipo,
+        category: this.categoria
+      })
+      .subscribe((result) => {
+        if (result && result.sucess) {
+          this.toast.successAlert();
+
+          this.router.navigate(['/','home']);
+        }
+      });
+      return;
+    }
+
     this.entryService
       .create({
         name: this.descricao,
@@ -85,6 +116,8 @@ export class ExpenseComponent implements OnInit {
       .subscribe((result) => {
         if (result && result.sucess) {
           this.toast.successAlert();
+
+          this.router.navigate(['/','home']);
         }
       });
   };

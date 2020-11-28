@@ -131,7 +131,7 @@ export class EntryService {
       return new ResponseDTO("Created", entry, 201, true);
     } catch (exception) {
       throw new InternalServerErrorException(
-        "Erro in create user: " + exception.message
+        "Erro in create entry: " + exception.message
       );
     }
   }
@@ -160,6 +160,8 @@ export class EntryService {
     if (!id) {
       throw new BadRequestException("Parameter 'id' is necessary!");
     }
+
+    console.log("aqui" + id)
 
     try {
       return new ResponseDTO(
